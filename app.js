@@ -20,9 +20,6 @@ if(process.env['APP_ENV'] == 'dev') {
   app.use(morganLogger('dev'));
 }
 
-//app.use(bodyParser.json());
-//app.use(bodyParser.urlencoded({ extended: false }));
-
 //Route all requests to the root URL to Index.js
 app.use('/', index);
 
