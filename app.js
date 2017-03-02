@@ -15,8 +15,10 @@ var index = require('./routes/index');
 //start up an instance of express, which is the base framework of our app
 var app = express();
 
-//Make sure to log every request with morganlogger
-app.use(morganLogger('dev'));
+//Make sure to log every request with morganlogger if we're in a dev enviroment
+if(process.env['APP_ENV'] == 'dev') {
+  app.use(morganLogger('dev'));
+}
 
 //app.use(bodyParser.json());
 //app.use(bodyParser.urlencoded({ extended: false }));
