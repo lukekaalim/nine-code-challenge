@@ -13,7 +13,8 @@ Module dependencies.
 
 //The application itself. This houses the logic for routing and everything else
 var app = require('../app');
-//This just prints nicer debugs. It came with express
+//This just prints nicer debugs. It came with express. debugs made with This
+//library will only appear in DEBUG mode
 var debug = require('debug')('nine-code-challenge:server');
 var http = require('http');
 
@@ -31,12 +32,13 @@ Create HTTP server.
 var server = http.createServer(app);
 
 /**
-Listen on provided port, on all network interfaces.
+Listen on provided port, on all network interfaces. Log the special events
+to the referenced functions.
  */
 
-server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+server.listen(port);
 
 /**
 Normalize a port into a number, string, or false.

@@ -12,7 +12,7 @@ var morganLogger = require('morgan');
 var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
-
+//start up an instance of express, which is the base framework of our app
 var app = express();
 
 //Make sure to log every request with morganlogger
@@ -24,9 +24,8 @@ app.use(morganLogger('dev'));
 //Route all requests to the root URL to Index.js
 app.use('/', index);
 
-
-// catch 404 and forward to error handler. If the request does not respond
-
+// If the request is not fulfilled by index,
+// catch 404 and forward to error handler.
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
@@ -42,7 +41,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.send(`error ${err.status}`);
 });
 
 module.exports = app;
