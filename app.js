@@ -1,36 +1,36 @@
+/**
+This file contains the actual application code, booting up the express
+framework, assigning the routers.
+ */
+
+//The server framework
 var express = require('express');
+//utilities
 var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
+var morganLogger = require('morgan');
+//standard middleware
 var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
-var users = require('./routes/users');
-
+//start up an instance of express, which is the base framework of our app
 var app = express();
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
+//Make sure to log every request with morganlogger if we're in a dev enviroment
+if(process.env['APP_ENV'] == 'dev') {
+  app.use(morganLogger('dev'));
+}
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-
+//Route all requests to the root URL to Index.js
 app.use('/', index);
-app.use('/users', users);
 
-// catch 404 and forward to error handler
+// If the request is not fulfilled by index,
+// catch 404 and forward to error handler.
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
+
 
 // error handler
 app.use(function(err, req, res, next) {
@@ -40,7 +40,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.send(`error ${err.status}`);
 });
 
 module.exports = app;
