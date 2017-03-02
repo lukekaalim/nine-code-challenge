@@ -6,11 +6,11 @@
  */
 
 //get the main application code
-const app = require('../app.js');
+var app = require('../app.js');
 
 //start up a server.
-const http = require('http');
-const server = http.createServer(app);
+var http = require('http');
+var server = http.createServer(app);
 
 //run the tests themselves
 

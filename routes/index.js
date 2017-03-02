@@ -3,14 +3,14 @@
   when a user posts data to the root URL of this application.
  */
 
-const express = require('express');
-const bodyParser = require('body-parser')
-const router = express.Router();
+var express = require('express');
+var bodyParser = require('body-parser')
+var router = express.Router();
 
 //Our module which handles how to sort the show
-const shows = require('../lib/shows.js');
+var shows = require('../lib/shows.js');
 //The standard error message that we give every response that is not successful
-const errorMessage = {
+var errorMessage = {
   "error": "Could not decode request: JSON parsing failed"
 }
 
@@ -45,7 +45,7 @@ router.all('/', function(req, res, next) {
   }
 
   //If there is no payload property, or the payload propery isn't an Array
-  const payload = req.body['payload'];
+  var payload = req.body['payload'];
   if(!payload || !Array.isArray(payload)) {
     //Throw an error and stop
     next(new Error("No Payload property to enumerate"));
@@ -53,7 +53,7 @@ router.all('/', function(req, res, next) {
   }
 
   //If everthing is fine, then sort the shows from the payload.
-  const validShows = shows.getValidShowsFromArray(payload);
+  var validShows = shows.getValidShowsFromArray(payload);
 
   //And send the response
   res.json({

@@ -6,11 +6,11 @@
     These test encompass general testing and invalid inputs.
  */
 
-const assert = require('assert');
-const request = require('supertest');
+var assert = require('assert');
+var request = require('supertest');
 
 
-const expected400ErrorMessage = {
+var expected400ErrorMessage = {
   "error": "Could not decode request: JSON parsing failed"
 }
 
@@ -45,7 +45,7 @@ module.exports = function RunTests(server) {
 
     //Test#2
     it('should return error 400 and a specific error when the body does not contain valid JSON', function(done) {
-      const invalidJSON = "this is not valid JSON."
+      var invalidJSON = "this is not valid JSON."
 
       request(server)
         .post('/')
@@ -60,7 +60,7 @@ module.exports = function RunTests(server) {
 
     //Test#3
     it('should return error 400 and a specific error when there is no payload property', function(done) {
-      const invalidPayload = {
+      var invalidPayload = {
         notPayload: [
           { title: 'not-a-real-show', 'drm' : true, 'episodeCount' : 1}
         ]
@@ -83,7 +83,7 @@ module.exports = function RunTests(server) {
     it('should respond with a list of shows that have DRM and more than one episode', function(done) {
       //This is a totally legal payload, containing three shows.
       //Only the first two are valid
-      const legalPayload = {
+      var legalPayload = {
         payload: [
           {
             title: 'valid-show',
@@ -109,7 +109,7 @@ module.exports = function RunTests(server) {
         ]
       };
       //This is what we expect the answer to be
-      const expectedResponse = {
+      var expectedResponse = {
         response : [
           {
             image: 'pee-en-gee.gif',
@@ -130,7 +130,7 @@ module.exports = function RunTests(server) {
         .send(legalPayload)
         .expect(200)
         .expect(function(res) {
-          const JSONrespose = JSON.parse(res.text);
+          var JSONrespose = JSON.parse(res.text);
           assert.deepEqual(JSONrespose, expectedResponse, "Server did not respond correctly");
         })
         .end(done)
@@ -141,7 +141,7 @@ module.exports = function RunTests(server) {
   describe('misc routes', function() {
     //Test#5
     it('should return 404 when the request is an invalid url', function(done) {
-      const fakeURL = "/not-a-real-url"; //This URL should be invalid.
+      var fakeURL = "/not-a-real-url"; //This URL should be invalid.
       //TODO: how do I figure out which urls aren't real? should I just
       //input like 20 random chars? I think that's a different type of test
 

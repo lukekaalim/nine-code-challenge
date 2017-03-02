@@ -1,7 +1,7 @@
 //The Module that we are going to be testing
-const shows = require('../lib/shows.js');
+var shows = require('../lib/shows.js');
 
-const assert = require('assert');
+var assert = require('assert');
 
 module.exports = function RunTests() {
 
@@ -10,7 +10,7 @@ module.exports = function RunTests() {
     it('should only have the image, slug, and title properties',
     function() {
 
-      const exampleShow = {
+      var exampleShow = {
         'country' : 'australia',
         'slug' : 'show/im-real-i-swear',
         'image' : {
@@ -21,7 +21,7 @@ module.exports = function RunTests() {
         'propertyThatShouldNotAppear' : 'randomValue'
       }
 
-      const resultObject = shows.getShowProperties(exampleShow);
+      var resultObject = shows.getShowProperties(exampleShow);
 
       //Assert that all three properties exist
       assert.notEqual(resultObject.title, undefined);
@@ -37,7 +37,7 @@ module.exports = function RunTests() {
     //#Test 2
     it('should match values from the original object', function() {
 
-      const exampleShow = {
+      var exampleShow = {
         'country' : 'australia',
         'slug' : 'show/im-real-i-swear',
         'image' : {
@@ -48,7 +48,7 @@ module.exports = function RunTests() {
         'property-that-should-not-appear' : 'randomValue'
       }
 
-      const expectedResult = {
+      var expectedResult = {
         'image' : 'hach-tee-tee-pee.foo',
         'slug' : 'show/im-real-i-swear',
         'title' : 'example-show ;)'
@@ -62,7 +62,7 @@ module.exports = function RunTests() {
     //#Test 3
     it('should return true for show that has DRM and one episode', function() {
 
-      const exampleShow = {
+      var exampleShow = {
         'drm' : true,
         'episodeCount' : 1
       }
@@ -72,7 +72,7 @@ module.exports = function RunTests() {
     //#Test 4
     it('should return false for show that has one episode but no DRM', function() {
 
-      const exampleShow = {
+      var exampleShow = {
         'drm' : false,
         'episodeCount' : 1
       }
@@ -82,15 +82,15 @@ module.exports = function RunTests() {
     //#Test 5
     it('should return false for show that has a \'truthy\' value for DRM, but is not actually true', function() {
 
-      const exampleShow = {
+      var exampleShow = {
         'drm' : 'true', //The word "true" is truthy
         'episodeCount' : 1
       }
-      const anotherExampleShow = {
+      var anotherExampleShow = {
         'drm' : { 'a non empty object is truthy' : true }, //The word
         'episodeCount' : 1
       }
-      const theLastExampleShow = {
+      var theLastExampleShow = {
         'drm' : 1, //the number one is normally truthy
         'episodeCount' : 1
       }
@@ -102,12 +102,12 @@ module.exports = function RunTests() {
     //#Test 6
     it('should return false for show that doesnt have drm or episode count', function() {
 
-      const exampleShow = {
+      var exampleShow = {
         'drm' : false,
         'number-of-episodes' : 1
       }
 
-      const anotherExampleShow = {
+      var anotherExampleShow = {
         'digital-rights' : false,
         'episodeCount' : 1
       }
